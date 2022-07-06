@@ -1,5 +1,8 @@
 import express, {json} from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const server = express();
@@ -8,4 +11,6 @@ server.use(json());
 
 server.use(router);
 
-server.listen(5000);
+const PORT = process.env.PORT || 5000
+
+server.listen(PORT);
