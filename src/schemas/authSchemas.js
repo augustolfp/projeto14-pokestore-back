@@ -17,3 +17,12 @@ export const newUserSchema = joi.object({
       'any.required': "Todos os campos são obrigatórios",
       'any.only': "A confirmação de senha não confere!",}),
   });
+
+  export const authUserSchema = joi.object({
+    email: joi.string().email().required().messages({
+      'string.email': "Digite um endereço de e-mail válido",
+      'any.required': "Todos os campos são obrigatórios",}),
+    password: joi.string().required().messages({
+      'string.empty': "Todos os campos são obrigatórios",
+      'any.required': "Todos os campos são obrigatórios",})
+  });
