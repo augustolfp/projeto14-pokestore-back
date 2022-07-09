@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { newUserSchema, authUserSchema } from '../schemas/authSchemas.js';
-import { v4 as uuid } from 'uuid';
 import db from '../dbStrategy/mongo.js';
 
 export async function createUser(req, res) {
@@ -26,7 +26,7 @@ export async function createUser(req, res) {
 }
 
 export async function loginUser(req, res) {
-    const authUser = req.body
+    const authUser = req.body;
     
     const validation = authUserSchema.validate(authUser);
 
@@ -39,11 +39,12 @@ export async function loginUser(req, res) {
     const user = await db.collection('users').findOne({ email });
     
         if(user && bcrypt.compareSync(password, user.password)) {
-            const token = uuid();        // depois verificar o bônus --> deixar aqui marcado com comentário pra isso
-				const session = await db.collection("sessions").insertOne({
-					userId: user._id,
-					token
-				})
+            const session = await db.collection("sessions").insertOne({
+                userId: user._id,
+                email,
+                date: Date.now()
+            })
+            const token = jwt.sign({email, sessionId: session.insertedId}, process.env.JWT_SECRET, {expiresIn: 60*30});   // Tempo em segundos
             res.status(200).send(`${token}`) // verificar se envia também o nome do usuário, vai depender do layout do front
         } else {
             res.status(401).send("Usuário ou senha incorretos")
