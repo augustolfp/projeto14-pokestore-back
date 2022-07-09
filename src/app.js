@@ -12,7 +12,7 @@ server.use(cors());
 server.use(json());
 
 server.use(router);
-server.use(authRoutes)
+server.use(authRoutes);
 
 const PORT = process.env.PORT || 5000
 
