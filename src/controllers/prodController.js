@@ -7,5 +7,6 @@ export async function getProducts(req, res){
 
 export async function getOneProduct(req, res){
     const id = req.params.id
-    const product = await db.collection("products").find( {id: id} ).toArray();
+    const product = await db.collection("products").findOne( {id: id} );
+    return res.send(product)
 }
