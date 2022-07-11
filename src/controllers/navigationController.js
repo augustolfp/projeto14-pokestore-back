@@ -2,7 +2,7 @@ import db from '../dbStrategy/mongo.js';
 
 export async function getCart(req, res){
     const user = res.locals.user;
-    const myCart = await db.collection("cart").find({id: user._id}).toArray();        
+    const myCart = await db.collection("cart").find({userId: user._id}).toArray();        
     return res.send(myCart);
 }
 
