@@ -6,11 +6,11 @@ export async function makeTransaction(req, res) {
     let total = 0;
     try {
         const myCart = await db.collection("cart").find({userId: user._id}).toArray();
-        myCart.map(product => total = total + parseFloat(product.price));
-        await db.collection("transactions").insertOne({itens: [...myCart], user: [...user], total: total});
+        //myCart.map(product => total = total + parseFloat(product.price));
+        await db.collection("transactions").insertOne({...myCart});
         res.sendStatus(201);
     }
     catch(error) {
-        res.sendStatus(401);code 
+        res.sendStatus(401);
     }
 }
