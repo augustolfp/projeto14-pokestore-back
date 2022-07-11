@@ -4,6 +4,6 @@ import { makeTransaction } from "../controllers/checkoutController.js";
 
 const checkoutRouter = Router();
 
-checkoutRouter.post("/checkout", validateToken, makeTransaction);
+checkoutRouter.post("/checkout", makeTransaction);
 
 export default checkoutRouter;
