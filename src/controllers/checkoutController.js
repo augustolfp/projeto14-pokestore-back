@@ -1,7 +1,6 @@
 import db from '../dbStrategy/mongo.js';
 
 export async function makeTransaction(req, res) {
-    const paymentData = req.body;
     const user = res.locals.user;
 
     let total = 0;
@@ -13,6 +12,6 @@ export async function makeTransaction(req, res) {
         res.sendStatus(201);
     }
     catch(error) {
-        res.send("Ocorreu um erro!");
+        res.sendStatus(401);
     }
 }
